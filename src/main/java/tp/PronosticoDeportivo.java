@@ -5,6 +5,11 @@
 package tp;
 
 import java.util.Random;
+
+import ownclasses.Equipo;
+import ownclasses.Participante;
+import ownclasses.Partido;
+        
 /**
  *
  * @author mcasatti
