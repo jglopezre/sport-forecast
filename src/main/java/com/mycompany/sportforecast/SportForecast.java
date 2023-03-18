@@ -22,9 +22,13 @@ import tp.TP;
 
 public class SportForecast {
     private static TP tp;
+    
     public static void main(String[] args) {
-        tp = new TP();
+        /*tp = new TP();
+        tp.executeMain();   //Executes mainly funtion of TP class imported here*/
         
-        tp.executeMain();   //Executes mainly funtion of TP class imported here
+        FirstSteepTest myTest = new FirstSteepTest();
+        
+        myTest.testEquipo();
     }
 }

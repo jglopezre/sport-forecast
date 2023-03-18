@@ -9,6 +9,7 @@ import java.util.Random;
 import ownclasses.Equipo;
 import ownclasses.Participante;
 import ownclasses.Partido;
+import ownclasses.Pronostico;
         
 /**
  *
@@ -134,7 +135,7 @@ public class PronosticoDeportivo {
         for (int participante = 0; participante<this.getParticipantes().length; participante++) {
             // Crear un vector que contenga todos los pronosticos posibles (1 por cada partido)
             // para cargarlo y luego asignarlo a cada participante
-            Pronostico[] prons = prons = new Pronostico[this.getPartidos().length];
+            Pronostico[] prons = new Pronostico[this.getPartidos().length];
             
             // Para cada participante recorrer la lista de partidos
             for (int partido=0; partido<this.getPartidos().length; partido++) {
