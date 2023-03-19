@@ -36,26 +36,4 @@ public class FirstSteepTest {
         System.out.println(participante1);
     
     }
-    
-    
-    
-    
-    /*private void testEquipoClass(String equipo, String descripcion) {
-        Equipo myEquipo = new Equipo();
-        
-        myEquipo.setNombre(equipo);
-        myEquipo.setDescripcion(descripcion);
-        
-        System.out.println( "Prueba de clase Euipo = \n" + myEquipo);
-    }
-    
-    private void testPronosticoClass() {
-        
-    }
-    
-    
-    public void testEquipo() {
-        this.testEquipoClass("River Plate", "El equipo del rojo y negro");
-    }
-    */
 }
