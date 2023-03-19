@@ -6,12 +6,12 @@ package ownclasses;
 
 
 public class Partido {
-    private String equipo1, equipo2;
+    private Equipo equipo1, equipo2;
     private int golesEquipo1, golesEquipo2;
     
     public Partido(
-            String equipo1,
-            String equipo2,
+            Equipo equipo1,
+            Equipo equipo2,
             int golesEquipo1,
             int golesEquipo2) {
     
@@ -22,25 +22,24 @@ public class Partido {
     }
     
     public Partido() {
-        this.equipo1 = "";
-        this.equipo2 = "";
+        
         this.golesEquipo1 = 0;
         this.golesEquipo2 = 0;
     }
     
-    public void setEquipo1(String equipo) {
+    public void setEquipo1(Equipo equipo) {
         this.equipo1 = equipo;
     }
     
-    public String getEquipo1() {
+    public Equipo getEquipo1() {
         return this.equipo1;
     }
     
-    public void setEquipo2(String equipo) {
+    public void setEquipo2(Equipo equipo) {
         this.equipo2 = equipo;
     }
     
-    public String getEquipo2() {
+    public Equipo getEquipo2() {
         return this.equipo2;
     }
     

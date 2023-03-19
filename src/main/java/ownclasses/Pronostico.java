@@ -16,7 +16,7 @@ public class Pronostico {
         this.resultado = resultado;
     }
 
-    public Equipo getEquipo() {
+    public Equipo getEquitestParticipanteClasspo() {
         return equipo;
     }
 

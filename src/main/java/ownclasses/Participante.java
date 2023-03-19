@@ -4,19 +4,20 @@
  */
 package ownclasses;
 
+import java.util.List;
+
 
 public class Participante {
     private String nombre;
-    private Pronostico[] pronosticos;
+    private List<Pronostico> pronosticos;
 
-    public Participante(String nombre, Pronostico[] pronosticos) {
+    public Participante(String nombre, List<Pronostico> pronosticos) {
         this.nombre = nombre;
         this.pronosticos = pronosticos;
     }
     
     public Participante() {
         this.nombre = "";
-        this.pronosticos = new ArrayList<Pronostico>;
     }
 
     public String getNombre() {
@@ -27,11 +28,11 @@ public class Participante {
         this.nombre = nombre;
     }
 
-    public Pronostico[] getPronosticos() {
+    public List<Pronostico> getPronosticos() {
         return pronosticos;
     }
 
-    public void setPronosticos(Pronostico[] pronosticos) {
+    public void setPronosticos(List<Pronostico> pronosticos) {
         this.pronosticos = pronosticos;
     }
 
