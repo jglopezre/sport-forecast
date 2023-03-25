@@ -22,14 +22,10 @@ package com.mycompany.sportforecast;
  */
 
 public class SportForecast {
-  // private static TP tp;
+    private static TP tp;
     
     public static void main(String[] args) {
-        /*tp = new TP();
-        tp.executeMain();   //Executes mainly function of TP class imported here*/
-        
-        FirstSteepTest myTest = new FirstSteepTest();
-        
-        myTest.testOwnClases();
+        tp = new TP();
+        tp.executeMain();   //Executes mainly function of TP class imported here
     }
 }

@@ -9,9 +9,9 @@ import java.util.List;
 
 public class Participante {
     private String nombre;
-    private List<Pronostico> pronosticos;
+    private Pronostico[] pronosticos;
 
-    public Participante(String nombre, List<Pronostico> pronosticos) {
+    public Participante(String nombre, Pronostico[] pronosticos) {
         this.nombre = nombre;
         this.pronosticos = pronosticos;
     }
@@ -28,17 +28,17 @@ public class Participante {
         this.nombre = nombre;
     }
 
-    public List<Pronostico> getPronosticos() {
+    public Pronostico[] getPronosticos() {
         return pronosticos;
     }
 
-    public void setPronosticos(List<Pronostico> pronosticos) {
+    public void setPronosticos(Pronostico[] pronosticos) {
         this.pronosticos = pronosticos;
     }
 
     @Override
     public String toString() {
-        return "Participante{" + "nombre=" + nombre + ", pronosticos=" + pronosticos.toString() + '}';
+        return "Participante{" + "nombre=" + nombre + ", pronosticos=" + pronosticos + '}';
     }
 
     
