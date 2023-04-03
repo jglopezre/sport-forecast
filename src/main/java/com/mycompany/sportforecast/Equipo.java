@@ -6,10 +6,12 @@ package com.mycompany.sportforecast;
 
 
 public class Equipo {
+    private int idEquipo;
     private String nombre;
     private String descripcion;
 
-    public Equipo(String nombre, String descripcion) {
+    public Equipo(int idEquipo, String nombre, String descripcion) {
+        this.idEquipo = idEquipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -17,9 +19,16 @@ public class Equipo {
     public Equipo() {
         this.nombre = "";
         this.descripcion = "";
-        
     }
 
+    public void setIdEquipo(int id) {
+        this.idEquipo = id;
+    }
+    
+    public int getIdEquipo() {
+        return this.idEquipo;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -38,6 +47,10 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" + "nombre=" + nombre + ", descripcion=" + descripcion + '}';
+        return "Equipo{ " +
+                "idEquipo= " + idEquipo +
+                ", nombre= " + nombre +
+                ", descripcion= " + descripcion +
+                " }";
     }
 }

@@ -4,21 +4,20 @@
  */
 package com.mycompany.sportforecast;
 
-import com.mycompany.sportforecast.Equipo;
-
 
 public class Partido {
-    private Equipo equipo1, equipo2;
-    private int golesEquipo1, golesEquipo2;
+    private int idPartido, idEquipo1, idEquipo2, golesEquipo1, golesEquipo2;
     
     public Partido(
-            Equipo equipo1,
-            Equipo equipo2,
+            int idPartido,
+            int idEquipo1,
+            int idEquipo2,
             int golesEquipo1,
             int golesEquipo2) {
     
-        this.equipo1 = equipo1;
-        this.equipo2 = equipo2;
+        this.idPartido = idPartido;
+        this.idEquipo1 = idEquipo1;
+        this.idEquipo2 = idEquipo2;
         this.golesEquipo1 = golesEquipo1;
         this.golesEquipo2 = golesEquipo2;
     }
@@ -29,20 +28,28 @@ public class Partido {
         this.golesEquipo2 = 0;
     }
     
-    public void setEquipo1(Equipo equipo) {
-        this.equipo1 = equipo;
+    public void setIdPartido(int id) {
+        this.idPartido = id;
     }
     
-    public Equipo getEquipo1() {
-        return this.equipo1;
+    public int getIdPartido() {
+        return this.idPartido;
     }
     
-    public void setEquipo2(Equipo equipo) {
-        this.equipo2 = equipo;
+    public void setIdEquipo1(int idEquipo) {
+        this.idEquipo1 = idEquipo;
     }
     
-    public Equipo getEquipo2() {
-        return this.equipo2;
+    public int getIdEquipo1() {
+        return this.idEquipo1;
+    }
+    
+    public void setIdEquipo2(int idEquipo) {
+        this.idEquipo2 = idEquipo;
+    }
+    
+    public int getIdEquipo2() {
+        return this.idEquipo2;
     }
     
     public void setGolesEquipo1(int goles) {
@@ -63,7 +70,13 @@ public class Partido {
 
     @Override
     public String toString() {
-        return "Partido{" + "equipo1=" + equipo1 + ", equipo2=" + equipo2 + ", golesEquipo1=" + golesEquipo1 + ", golesEquipo2=" + golesEquipo2 + '}';
+        return "Partido{ " + 
+                "idPartido= " + idPartido +
+                ", equipo1= " + idEquipo1 +
+                ", equipo2= " + idEquipo2 +
+                ", golesEquipo1=" + golesEquipo1 +
+                ", golesEquipo2=" + golesEquipo2 +
+                " }";
     }
     
     

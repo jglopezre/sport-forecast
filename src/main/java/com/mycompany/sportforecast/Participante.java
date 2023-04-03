@@ -8,18 +8,27 @@ import java.util.List;
 
 
 public class Participante {
+    private int idParticipante;
     private String nombre;
-    private Pronostico[] pronosticos;
+    //private Pronostico[] pronosticos;
 
-    public Participante(String nombre, Pronostico[] pronosticos) {
+    public Participante(int idParticipante, String nombre) {
+        this.idParticipante = idParticipante;
         this.nombre = nombre;
-        this.pronosticos = pronosticos;
     }
     
     public Participante() {
         this.nombre = "";
     }
 
+    public void setIdParticipante(int id) {
+        this.idParticipante = id;
+    }
+    
+    public int getIdParticipante() {
+        return this.idParticipante;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -28,19 +37,25 @@ public class Participante {
         this.nombre = nombre;
     }
 
-    public Pronostico[] getPronosticos() {
+    /*public Pronostico[] getPronosticos() {
         return pronosticos;
     }
 
     public void setPronosticos(Pronostico[] pronosticos) {
         this.pronosticos = pronosticos;
-    }
+    }*/
 
     @Override
     public String toString() {
-        return "Participante{" + "nombre=" + nombre + ", pronosticos=" + pronosticos + '}';
+        return "Participante{ " +
+                "idParticipante= " + idParticipante +
+                "nombre= " + nombre +
+                " }";
     }
-
+    
+    public void cargarPronostico(){
+        
+    }
     
     
 }

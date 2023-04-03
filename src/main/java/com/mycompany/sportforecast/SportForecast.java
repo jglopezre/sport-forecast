@@ -4,7 +4,7 @@
 
 package com.mycompany.sportforecast;
 
-//import tp.TP;
+import java.util.List;
 
 /**
  *
@@ -22,10 +22,26 @@ package com.mycompany.sportforecast;
  */
 
 public class SportForecast {
-    private static TP tp;
+    //private static TP tp;
+    private static ListaParticipantes listaParticipantes;
+    private static ListaEquipos listaEquipos;
+    private static ListaPartidos listaPartidos;
+    private static ListaPronosticos listaPronosticos;
     
     public static void main(String[] args) {
-        tp = new TP();
-        tp.executeMain();   //Executes mainly function of TP class imported here
+        //tp = new TP();
+        //tp.executeMain();   //Executes mainly function of TP class imported here
+        
+        listaParticipantes = new ListaParticipantes();
+        System.out.println(listaParticipantes);
+        
+        listaEquipos = new ListaEquipos();
+        System.out.println(listaEquipos);
+        
+        listaPartidos = new ListaPartidos();
+        System.out.println(listaPartidos);
+        
+        listaPronosticos = new ListaPronosticos();
+        System.out.println(listaPronosticos);
     }
 }
