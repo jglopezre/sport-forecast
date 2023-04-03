@@ -70,18 +70,35 @@ public class Partido {
 
     @Override
     public String toString() {
-        return "Partido{ " + 
-                "idPartido= " + idPartido +
-                ", equipo1= " + idEquipo1 +
-                ", equipo2= " + idEquipo2 +
-                ", golesEquipo1=" + golesEquipo1 +
-                ", golesEquipo2=" + golesEquipo2 +
-                " }";
+        String response = 
+                "Partido id = " + this.idPartido + "\n" +
+                "-----------------------------------------\n"+
+                this.idEquipo1 + " vs. " + this.idEquipo2 + "\n" +
+                "Resultado: "+ this.golesEquipo1 + " a " + this.golesEquipo2 + "\n" +
+                "-----------------------------------------\n";
+        return response;
     }
     
-    
-    public char resultado(Equipo equipo) {
-        return 'G';
+    public char getResultado (Equipo equipo) {
+        char resultado = 'X';
+        
+        if (equipo.getIdEquipo() == idEquipo1) {
+            if (this.golesEquipo1 > this.golesEquipo2) {
+                resultado = 'G';
+            } else if (this.golesEquipo1 < this.golesEquipo2) {
+                resultado = 'P';
+            } else {
+                resultado = 'E';
+            }
+        } else if (equipo.getIdEquipo() == idEquipo2) {
+            if (this.golesEquipo2 > this.golesEquipo1) {
+                resultado = 'G';
+            } else if (this.golesEquipo2 < this.golesEquipo1) {
+                resultado = 'P';
+            } else {
+                resultado = 'E';
+            }
+        } 
+        return resultado;
     }
-    
 }

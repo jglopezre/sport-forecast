@@ -34,14 +34,18 @@ public class SportForecast {
         
         listaParticipantes = new ListaParticipantes();
         System.out.println(listaParticipantes);
+        System.out.println("mi busqueda = " + listaParticipantes.getParticipante(1));
         
         listaEquipos = new ListaEquipos();
         System.out.println(listaEquipos);
+        System.out.println("mi busqueda = " + listaEquipos.getEquipo(4));
         
         listaPartidos = new ListaPartidos();
         System.out.println(listaPartidos);
+        System.out.println("mi busqueda = " + listaPartidos.getPartido(6));
         
         listaPronosticos = new ListaPronosticos();
         System.out.println(listaPronosticos);
+        System.out.println("mi busqueda = " + listaPronosticos.getPronostico(2));
     }
 }

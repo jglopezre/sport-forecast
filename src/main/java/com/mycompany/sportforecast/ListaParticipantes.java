@@ -83,4 +83,15 @@ public class ListaParticipantes {
         
         return participantes;
     }
+    
+    public Participante getParticipante (int id) {
+        Participante found = null;
+        for (Participante participante : this.getParticipantes()) {
+            if (participante.getIdParticipante() == id) {
+                found = participante;
+                break;
+            }
+        }
+        return found;
+    }
 }

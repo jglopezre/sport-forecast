@@ -47,9 +47,10 @@ public class Participante {
 
     @Override
     public String toString() {
-        return "Participante{ " +
-                "idParticipante= " + idParticipante +
-                "nombre= " + nombre +
+        return  "\n" +
+                "Participante{ " +
+                "id= " + idParticipante + " " +
+                this.nombre +
                 " }";
     }
     

@@ -33,7 +33,7 @@ public class ListaPronosticos {
         return pronosticos;
     } 
     
-    public void setPronostico(List<Pronostico> pronosticosList) {
+    public void setPronosticos(List<Pronostico> pronosticosList) {
         this.pronosticos = pronosticosList;
     }
     
@@ -84,5 +84,16 @@ public class ListaPronosticos {
         }
         
         return pronosticos;
+    }
+    
+    public Pronostico getPronostico (int id) {
+        Pronostico found = null;
+        for (Pronostico pronostico : this.getPronosticos()) {
+            if (pronostico.getIdPronostico() == id) {
+                found = pronostico;
+                break;
+            }
+        }
+        return found;
     }
 }

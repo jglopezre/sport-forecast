@@ -77,4 +77,15 @@ public class ListaEquipos {
         }
         return equipos;
     }
+    
+    public Equipo getEquipo (int idEquipo) {
+        Equipo found = null;
+        for (Equipo equipo : this.getEquipos()) {
+            if (equipo.getIdEquipo() == idEquipo) {
+                found = equipo;
+                break;
+            }
+        }
+        return found;
+    }
 }

@@ -69,13 +69,13 @@ public class Pronostico {
 
     @Override
     public String toString() {
-        return "Pronostico{ " +
-                "idPronostico= " + idPronostico +
-                ", idParticipante= " + idParticipante +
-                ", partido= " + idPartido +
-                ", equipo= " + idEquipo +
-                ", resultado= " + resultado +
-                " }";
+        String response =
+                "Pronostico id: " + this.idPronostico +
+                "\n Apuesto a que en el partido id "+ this.getIdPartido() + "\n" + 
+                " el equipo id " + this.getIdEquipo() +
+                " obtiene el siguiente Resultado: " + this.getResultado()+ "\n";
+        
+        return response;
     }
     
     public int puntos(int puntos) {

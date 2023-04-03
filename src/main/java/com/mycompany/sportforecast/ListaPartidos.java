@@ -29,11 +29,11 @@ public class ListaPartidos {
         this.partidos = this.cargaDeArchivo(nombreArchivo);
     }
     
-    public List<Partido> getPartido() {
+    public List<Partido> getPartidos() {
         return this.partidos;
     }
     
-    public void setPartido(List<Partido> partidos) {
+    public void setPartidos(List<Partido> partidos) {
         this.partidos = partidos;
     }
     
@@ -85,6 +85,17 @@ public class ListaPartidos {
         }
         
         return partidos;
+    }
+    
+    public Partido getPartido (int id) {
+        Partido found = null;
+        for (Partido partido : this.getPartidos()) {
+            if (partido.getIdPartido() == id) {
+                found = partido;
+                break;
+            }
+        }
+        return found;
     }
 }
 
