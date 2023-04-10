@@ -7,7 +7,6 @@ package com.mycompany.sportforecast;
 import com.mycompany.sportforecast.Partido;
 import com.mycompany.sportforecast.Equipo;
 
-
 public class Pronostico {
     private int idPronostico, idParticipante, idPartido, idEquipo;
     private char resultado;
@@ -70,8 +69,9 @@ public class Pronostico {
     @Override
     public String toString() {
         String response =
-                "Pronostico id: " + this.idPronostico +
-                "\n Apuesto a que en el partido id "+ this.getIdPartido() + "\n" + 
+                "Pronostico id: " + this.idPronostico + "\n" +
+                "Participante " + this.idParticipante + "\n" +
+                "Apuesto a que en el partido id "+ this.getIdPartido() + "\n" + 
                 " el equipo id " + this.getIdEquipo() +
                 " obtiene el siguiente Resultado: " + this.getResultado()+ "\n";
         

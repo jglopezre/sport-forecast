@@ -10,10 +10,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author javierl
- */
 public class ListaParticipantes {
     private List<Participante> participantes;
     private String nombreArchivo;

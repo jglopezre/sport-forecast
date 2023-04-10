@@ -42,7 +42,7 @@ public class ListaEquipos {
 
     @Override
     public String toString() {
-        return "ListaEquipos{" + "equipos=" + equipos + '}';
+        return "ListaEquipos{ " + "equipos= " + equipos + '}';
     }
 
     public String listar() {

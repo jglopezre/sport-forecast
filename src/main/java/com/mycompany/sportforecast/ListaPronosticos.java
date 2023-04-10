@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- *
- * @author javierl
- */
 public class ListaPronosticos {
     private List<Pronostico> pronosticos;
     private String defaultFile = "./csvFiles/pronosticos.csv";
@@ -45,8 +41,13 @@ public class ListaPronosticos {
         this.pronosticos.remove(pronostico);
     }
     
+    @Override
     public String toString() {
         return "Listar Pronosticos {" + "Pronostico = " + this.pronosticos + "}";
+    }
+    
+    public int listSize() {
+        return pronosticos.size();
     }
     
     public String Listar() {

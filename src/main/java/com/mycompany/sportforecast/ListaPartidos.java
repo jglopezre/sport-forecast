@@ -92,7 +92,7 @@ public class ListaPartidos {
         for (Partido partido : this.getPartidos()) {
             if (partido.getIdPartido() == id) {
                 found = partido;
-                break;
+                break;  //for exit from for loop by find first coinsidence
             }
         }
         return found;

@@ -4,9 +4,6 @@
  */
 package com.mycompany.sportforecast;
 
-import java.util.List;
-
-
 public class Participante {
     private int idParticipante;
     private String nombre;

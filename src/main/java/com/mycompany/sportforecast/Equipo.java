@@ -48,7 +48,7 @@ public class Equipo {
     @Override
     public String toString() {
         return "\n" +
-                "id " + this.idEquipo +
+                "id " + this.idEquipo + " " +
                 "nombre " + this.nombre +
                 " (" + this.descripcion +
                 ")";

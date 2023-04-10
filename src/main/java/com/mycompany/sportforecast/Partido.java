@@ -4,7 +4,6 @@
  */
 package com.mycompany.sportforecast;
 
-
 public class Partido {
     private int idPartido, idEquipo1, idEquipo2, golesEquipo1, golesEquipo2;
     
@@ -56,7 +55,7 @@ public class Partido {
         this.golesEquipo1 = goles;
     }
     
-    public int setGolesEquipo1() {
+    public int getGolesEquipo1() {
         return this.golesEquipo1;
     }
     
@@ -64,7 +63,7 @@ public class Partido {
         this.golesEquipo2 = goles;
     }
     
-    public int setGolesEquipo2() {
+    public int getGolesEquipo2() {
         return this.golesEquipo2;
     }
 
