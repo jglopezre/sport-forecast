@@ -25,29 +25,35 @@ public class PronosticoDeportivo {
         for (Participante participante : this.participantes.getParticipantes()) {
             String nombreParticipante = participante.getNombre();
             String pronosticoByParticipante = "";
+            int assertedPronosticoCounter = 0;
             for(Pronostico pronostico : getPronosticoById(participante.getIdParticipante())) {
                 Partido partido = this.partidos.getPartido(pronostico.getIdPartido());
-                String[] equiposByPartido = {
-                    this.equipos.getEquipo(partido.getIdEquipo1()).getNombre(),
-                    this.equipos.getEquipo(partido.getIdEquipo2()).getNombre()
+                Equipo[] equiposByPartido = {
+                    this.equipos.getEquipo(partido.getIdEquipo1()),
+                    this.equipos.getEquipo(partido.getIdEquipo2())
                 };
-                String pronosticoResult = String.valueOf(pronostico.getResultado());
+                char pronosticoResult = pronostico.getResultado();
+                char resultadoEquipoByPartido = partido.getResultado(equiposByPartido[pronostico.getIdEquipo() - 1]);
+                assertedPronosticoCounter += pronosticoResulCompare(pronosticoResult, resultadoEquipoByPartido);
+                
                 
                 pronosticoByParticipante += 
-                        "\nPronostico " + pronostico.getIdPronostico() + 
-                        " el equipo " + equiposByPartido[pronostico.getIdEquipo() - 1] +
+                        "\n" + "Pronostico " + pronostico.getIdPronostico() + 
+                        " el equipo " + equiposByPartido[pronostico.getIdEquipo() - 1].getNombre() +
                         " será: " + pronosticoResult + "\n" +
-                        "El resultado del partido fue " +
-                        equiposByPartido[0] + " = " + partido.getGolesEquipo1() + 
-                        " vs " + equiposByPartido[1] + " = " + partido.getGolesEquipo2() + "\n";
+                        "El partido terminó " +
+                        equiposByPartido[0].getNombre() + " = " + partido.getGolesEquipo1() + 
+                        " vs " + equiposByPartido[1].getNombre() + " = " + partido.getGolesEquipo2() + "\n" + 
+                        "El equipo " + equiposByPartido[pronostico.getIdEquipo() - 1].getNombre() + " tuvo resultado " +
+                        resultadoEquipoByPartido + "\n";
             }
             
                     
             System.out.println(">>> El participante " + nombreParticipante +
-                    " tiene los siguientes pronosticos: \n" + pronosticoByParticipante +
+                    " tiene los siguientes pronosticos: \n" + pronosticoByParticipante + "\n" +
+                    nombreParticipante + " asertó " + assertedPronosticoCounter + " pronosticos" + "\n" +        
                     "------------------------------------");
             
-            pronosticoByParticipante = "";
         }   
     }
     
@@ -65,7 +71,14 @@ public class PronosticoDeportivo {
         return pronosticosById;
     } 
     
-    
+    private int pronosticoResulCompare(char equipoPartidoResult, char equipoPronosticoResult) {
+
+        if(equipoPartidoResult == equipoPronosticoResult){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     
     
     
