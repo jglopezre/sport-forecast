@@ -4,6 +4,9 @@
  */
 package com.mycompany.sportforecast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Participante {
     private int idParticipante;
     private String nombre;
@@ -51,9 +54,17 @@ public class Participante {
                 " }";
     }
     
-    public void cargarPronostico(){
+    public List<Pronostico> getPronosticoById(ListaPronosticos pronosticos) {
+        List<Pronostico> pronosticosById = new ArrayList<>();
         
+        for(Pronostico pronostico : pronosticos.getPronosticos()) {
+            if(pronostico.getIdParticipante() == this.getIdParticipante()) {
+                pronosticosById.add(pronostico);
+            }
+        }
+        if(pronosticosById.size() <= 0) {
+            System.out.println("Pronosticos no encontrados en la lista");
+        }
+        return pronosticosById;
     }
-    
-    
 }

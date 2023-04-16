@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 public class ListaParticipantes {
     private List<Participante> participantes;
-    private String nombreArchivo;
-    private String defaultFile = "./csvFiles/participantes.csv";
+    private final String nombreArchivo;
+    private final String defaultFile = "./csvFiles/participantes.csv";
     
     public ListaParticipantes(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;

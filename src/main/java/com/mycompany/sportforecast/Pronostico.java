@@ -78,7 +78,11 @@ public class Pronostico {
         return response;
     }
     
-    public int puntos(int puntos) {
-        return 0;
+    public int resultCompare(char equipoPartidoResult) {
+        if(this.getResultado() == equipoPartidoResult){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

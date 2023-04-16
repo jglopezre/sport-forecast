@@ -26,7 +26,7 @@ public class PronosticoDeportivo {
             String nombreParticipante = participante.getNombre();
             String pronosticoByParticipante = "";
             int assertedPronosticoCounter = 0;
-            for(Pronostico pronostico : getPronosticoById(participante.getIdParticipante())) {
+            for(Pronostico pronostico : participante.getPronosticoById(pronosticos)) {
                 Partido partido = this.partidos.getPartido(pronostico.getIdPartido());
                 Equipo[] equiposByPartido = {
                     this.equipos.getEquipo(partido.getIdEquipo1()),
@@ -34,7 +34,7 @@ public class PronosticoDeportivo {
                 };
                 char pronosticoResult = pronostico.getResultado();
                 char resultadoEquipoByPartido = partido.getResultado(equiposByPartido[pronostico.getIdEquipo() - 1]);
-                assertedPronosticoCounter += pronosticoResulCompare(pronosticoResult, resultadoEquipoByPartido);
+                assertedPronosticoCounter += pronostico.resultCompare(resultadoEquipoByPartido);
                 
                 
                 pronosticoByParticipante += 
@@ -57,28 +57,7 @@ public class PronosticoDeportivo {
         }   
     }
     
-    private List<Pronostico> getPronosticoById(int idParticipante) {
-        List<Pronostico> pronosticosById = new ArrayList<>();
-        
-        for(Pronostico pronostico : this.pronosticos.getPronosticos()) {
-            if(pronostico.getIdParticipante() == idParticipante) {
-                pronosticosById.add(pronostico);
-            }
-        }
-        if(pronosticosById.size() <= 0) {
-            System.out.println("Pronosticos no encontrados en la lista");
-        }
-        return pronosticosById;
-    } 
     
-    private int pronosticoResulCompare(char equipoPartidoResult, char equipoPronosticoResult) {
-
-        if(equipoPartidoResult == equipoPronosticoResult){
-            return 1;
-        } else {
-            return 0;
-        }
-    }
     
     
     
