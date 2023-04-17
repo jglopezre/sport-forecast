@@ -17,15 +17,10 @@ public class ListaEquipos {
     private final String defaultDB = "./pronosticos.db";
     private final String CONSULTA_EQUIPOS = "SELECT idEquipo, nombre, descripcion FROM Equipos";
 
-    // constructores
-    public ListaEquipos(String nombreArchivo) {
-        this.equipos = readEquiposDB(nombreArchivo);
-    }
     public ListaEquipos() {
-        this.equipos = readEquiposDB(defaultDB);
+        this.equipos = readEquiposDB();
     }
     
-    //set y get
     public List<Equipo> getEquipos() {
         return equipos;
     }
@@ -33,7 +28,6 @@ public class ListaEquipos {
         this.equipos = equipos;
     }
     
-    // add y remove elementos
     public void addEquipo(Equipo equipo) {
         this.equipos.add(equipo);
     }
@@ -54,12 +48,11 @@ public class ListaEquipos {
         return lista;
     }
     
-    private List<Equipo> readEquiposDB(String db) {
+    private List<Equipo> readEquiposDB() {
         List<Equipo> equipos = new ArrayList<>();
-        
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
+            conn = DriverManager.getConnection("jdbc:sqlite:"+this.defaultDB);
             
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(CONSULTA_EQUIPOS);
@@ -75,8 +68,15 @@ public class ListaEquipos {
             }
         } catch(SQLException e) {
             System.out.println("Error al conectar con la base de datos: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
         return equipos;
     }
     

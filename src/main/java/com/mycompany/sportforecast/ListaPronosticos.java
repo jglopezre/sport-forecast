@@ -17,12 +17,12 @@ public class ListaPronosticos {
     private final String defaultDB = "./pronosticos.db";
     private final String CONSULTA_PRONOSTICOS = "SELECT idPronostico, idParticipante, idPartido, idEquipo, resultado FROM Pronosticos";
     
-    public ListaPronosticos(String nombreArchivo) {
-        pronosticos = this.cargarDB(nombreArchivo);
+    public ListaPronosticos(int idParticipante) {
+        pronosticos = this.loadPronosticoData(idParticipante);
     }
     
     public ListaPronosticos() {
-        pronosticos = this.cargarDB(this.defaultDB);
+        pronosticos = this.loadPronosticoData(0);
     }
     
     public List<Pronostico> getPronosticos() {
@@ -39,6 +39,17 @@ public class ListaPronosticos {
     
     public void removePronostico(Pronostico pronostico) {
         this.pronosticos.remove(pronostico);
+    }
+    
+    public Pronostico getPronostico (int id) {
+        Pronostico found = null;
+        for (Pronostico pronostico : this.getPronosticos()) {
+            if (pronostico.getIdPronostico() == id) {
+                found = pronostico;
+                break;
+            }
+        }
+        return found;
     }
     
     @Override
@@ -58,14 +69,14 @@ public class ListaPronosticos {
         return lista;
     }
     
-    private List<Pronostico> cargarDB(String db) {
+    private List<Pronostico> loadPronosticoData(int idParticipante) {
         List<Pronostico> pronosticos = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
+            conn = DriverManager.getConnection("jdbc:sqlite:"+this.defaultDB);
             
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(CONSULTA_PRONOSTICOS);
+            ResultSet rs = stmt.executeQuery(CONSULTA_PRONOSTICOS + " WHERE idParticipante=" + idParticipante);
             
             //Una vez ejecutada la consulta, analizamos los valores recibidos de cada equipo
             while (rs.next()) {
@@ -80,18 +91,17 @@ public class ListaPronosticos {
             }
         } catch(SQLException e) {
             System.out.println("Error al conectar con la base de datos: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         return pronosticos;
     }
     
-    public Pronostico getPronostico (int id) {
-        Pronostico found = null;
-        for (Pronostico pronostico : this.getPronosticos()) {
-            if (pronostico.getIdPronostico() == id) {
-                found = pronostico;
-                break;
-            }
-        }
-        return found;
-    }
+    
 }

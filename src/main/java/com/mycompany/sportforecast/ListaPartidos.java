@@ -17,12 +17,8 @@ public class ListaPartidos {
     private final String defaultDB = "./pronosticos.db";
     private final String CONSULTA_PARTIDOS = "SELECT idPartido, idEquipo1, idEquipo2, golesEquipo1, golesEquipo2 FROM Partidos";
     
-    public ListaPartidos(String nombreArchivo) {
-        this.partidos = this.cargaDB(nombreArchivo);
-    }
-    
     public ListaPartidos() {
-        this.partidos = this.cargaDB(this.defaultDB);
+        this.partidos = this.loadPartidosData(this.defaultDB);
     }
     
     public List<Partido> getPartidos() {
@@ -54,9 +50,9 @@ public class ListaPartidos {
         return lista;
     }
     
-    private List<Partido> cargaDB(String db) {
+    private List<Partido> loadPartidosData(String db) {
         List<Partido> partidos = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:"+db);
             Statement stmt = conn.createStatement();
@@ -75,6 +71,14 @@ public class ListaPartidos {
             }
         } catch(SQLException e) {
             System.out.println("Error al conectar con la base de datos: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         return partidos;
     }

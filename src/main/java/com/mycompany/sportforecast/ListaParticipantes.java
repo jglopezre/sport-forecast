@@ -17,11 +17,6 @@ public class ListaParticipantes {
     private final String defaultDB = "./pronosticos.db";
     private final String CONSULTA_PARTICIPANTES = "SELECT idParticipante, nombre FROM Participantes";
     
-    //Constructores
-    public ListaParticipantes(String nombreArchivo) {
-        this.participantes = readParticipanteDB(nombreArchivo);
-    }
-    
     public ListaParticipantes() {
         this.participantes = readParticipanteDB(this.defaultDB);
     }
@@ -32,6 +27,17 @@ public class ListaParticipantes {
     
     public List<Participante> getParticipantes() {
         return this.participantes;
+    }
+    
+    public Participante getParticipante (int id) {
+        Participante found = null;
+        for (Participante participante : this.getParticipantes()) {
+            if (participante.getIdParticipante() == id) {
+                found = participante;
+                break;
+            }
+        }
+        return found;
     }
     
     public void addParticipante(Participante participante) {
@@ -58,10 +64,9 @@ public class ListaParticipantes {
     
     private List<Participante> readParticipanteDB(String db) {
         List<Participante> participantes = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
-            
+            conn = DriverManager.getConnection("jdbc:sqlite:" + db);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(CONSULTA_PARTICIPANTES);
             
@@ -75,18 +80,17 @@ public class ListaParticipantes {
             }
         } catch(SQLException e) {
             System.out.println("Error al conectar con la base de datos: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         return participantes;
     }
     
-    public Participante getParticipante (int id) {
-        Participante found = null;
-        for (Participante participante : this.getParticipantes()) {
-            if (participante.getIdParticipante() == id) {
-                found = participante;
-                break;
-            }
-        }
-        return found;
-    }
+    
 }

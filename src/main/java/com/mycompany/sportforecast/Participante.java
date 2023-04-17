@@ -10,17 +10,14 @@ import java.util.List;
 public class Participante {
     private int idParticipante;
     private String nombre;
-    //private Pronostico[] pronosticos;
+    private final ListaPronosticos pronosticos;
 
     public Participante(int idParticipante, String nombre) {
         this.idParticipante = idParticipante;
         this.nombre = nombre;
+        this.pronosticos = new ListaPronosticos(idParticipante);
     }
     
-    public Participante() {
-        this.nombre = "";
-    }
-
     public void setIdParticipante(int id) {
         this.idParticipante = id;
     }
@@ -36,28 +33,11 @@ public class Participante {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    /*public Pronostico[] getPronosticos() {
-        return pronosticos;
-    }
-
-    public void setPronosticos(Pronostico[] pronosticos) {
-        this.pronosticos = pronosticos;
-    }*/
-
-    @Override
-    public String toString() {
-        return  "\n" +
-                "Participante{ " +
-                "id= " + idParticipante + " " +
-                this.nombre +
-                " }";
-    }
     
-    public List<Pronostico> getPronosticoById(ListaPronosticos pronosticos) {
+    public List<Pronostico> getPronosticos() {
         List<Pronostico> pronosticosById = new ArrayList<>();
         
-        for(Pronostico pronostico : pronosticos.getPronosticos()) {
+        for(Pronostico pronostico : this.pronosticos.getPronosticos()) {
             if(pronostico.getIdParticipante() == this.getIdParticipante()) {
                 pronosticosById.add(pronostico);
             }
@@ -67,4 +47,37 @@ public class Participante {
         }
         return pronosticosById;
     }
+    
+    private int getScorePronostico() {
+        ListaPartidos partidos = new ListaPartidos();
+        ListaEquipos equipos = new ListaEquipos();
+        
+        int assertedPronosticoCounter = 0;
+        
+        for(Pronostico pronostico : this.getPronosticos()) {
+                Partido partido = partidos.getPartido(pronostico.getIdPartido());
+                Equipo[] equiposByPartido = {
+                    equipos.getEquipo(partido.getIdEquipo1()),
+                    equipos.getEquipo(partido.getIdEquipo2())
+                };
+                char resultadoEquipoByPartido = partido.getResultado(equiposByPartido[pronostico.getIdEquipo() - 1]);
+                assertedPronosticoCounter += pronostico.resultCompare(resultadoEquipoByPartido);
+            }
+        return assertedPronosticoCounter;
+    }
+
+    @Override
+    public String toString() {
+        return  "\n" +
+                "Participante{ " +
+                "id= " + this.getIdParticipante() + " " +
+                "nombre= " + this.getNombre() + " " +
+                "puntaje= " + this.getScorePronostico() +
+                " }";
+    }
+    
+    
+    
+    
+    
 }
