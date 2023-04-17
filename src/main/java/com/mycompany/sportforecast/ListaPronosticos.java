@@ -4,25 +4,25 @@
  */
 package com.mycompany.sportforecast;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ListaPronosticos {
     private List<Pronostico> pronosticos;
-    private String defaultFile = "./csvFiles/pronosticos.csv";
-    private String nombreArchivo;
+    private final String defaultDB = "./pronosticos.db";
+    private final String CONSULTA_PRONOSTICOS = "SELECT idPronostico, idParticipante, idPartido, idEquipo, resultado FROM Pronosticos";
     
     public ListaPronosticos(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
-        pronosticos = this.cargarDeArchivo(this.nombreArchivo);
+        pronosticos = this.cargarDB(nombreArchivo);
     }
     
     public ListaPronosticos() {
-        this.nombreArchivo = this.defaultFile;
-        pronosticos = this.cargarDeArchivo(this.nombreArchivo);
+        pronosticos = this.cargarDB(this.defaultDB);
     }
     
     public List<Pronostico> getPronosticos() {
@@ -58,32 +58,29 @@ public class ListaPronosticos {
         return lista;
     }
     
-    private List<Pronostico> cargarDeArchivo(String file) {
-        String[] pronosticosArray;
-        Pronostico pronostico;
+    private List<Pronostico> cargarDB(String db) {
         List<Pronostico> pronosticos = new ArrayList<>();
-        
+        Connection conn;
         try {
-            Scanner sc = new Scanner(new File(file));
-            sc.useDelimiter("\n");
-            sc.next();
+            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
             
-            while(sc.hasNext()) {
-                pronosticosArray = sc.next().split(",");
-                pronostico = new Pronostico(
-                        Integer.parseInt(pronosticosArray[0]),
-                        Integer.parseInt(pronosticosArray[1]),
-                        Integer.parseInt(pronosticosArray[2]),
-                        Integer.parseInt(pronosticosArray[3]),
-                        pronosticosArray[4].charAt(1)
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(CONSULTA_PRONOSTICOS);
+            
+            //Una vez ejecutada la consulta, analizamos los valores recibidos de cada equipo
+            while (rs.next()) {
+                Pronostico pronostico = new Pronostico(
+                    rs.getInt("idPronostico"),
+                    rs.getInt("idParticipante"),
+                    rs.getInt("idPartido"),
+                    rs.getInt("idEquipo"),
+                    rs.getString("resultado").charAt(0)
                 );
                 pronosticos.add(pronostico);
             }
+        } catch(SQLException e) {
+            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
         }
-        catch(IOException exception){
-            System.out.println("Mensaje " + exception.getMessage());
-        }
-        
         return pronosticos;
     }
     

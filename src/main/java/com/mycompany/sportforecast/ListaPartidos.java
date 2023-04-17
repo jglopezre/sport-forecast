@@ -4,29 +4,25 @@
  */
 package com.mycompany.sportforecast;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-/**
- *
- * @author javierl
- */
 public class ListaPartidos {
     private List<Partido> partidos;
-    String defaultFile = "./csvFiles/partidos.csv";
-    String nombreArchivo;
+    private final String defaultDB = "./pronosticos.db";
+    private final String CONSULTA_PARTIDOS = "SELECT idPartido, idEquipo1, idEquipo2, golesEquipo1, golesEquipo2 FROM Partidos";
     
     public ListaPartidos(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
-        this.partidos = this.cargaDeArchivo(nombreArchivo);
+        this.partidos = this.cargaDB(nombreArchivo);
     }
     
     public ListaPartidos() {
-        this.nombreArchivo = this.defaultFile;
-        this.partidos = this.cargaDeArchivo(nombreArchivo);
+        this.partidos = this.cargaDB(this.defaultDB);
     }
     
     public List<Partido> getPartidos() {
@@ -58,32 +54,28 @@ public class ListaPartidos {
         return lista;
     }
     
-    private List<Partido> cargaDeArchivo(String file) {
-        String[] partidosArray;
-        Partido partido;
+    private List<Partido> cargaDB(String db) {
         List<Partido> partidos = new ArrayList<>();
-        
+        Connection conn;
         try {
-            Scanner sc = new Scanner(new File(file));
-            sc.useDelimiter("\n");
-            sc.next();
+            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(CONSULTA_PARTIDOS);
             
-            while(sc.hasNext()) {
-                partidosArray = sc.next().split(",");
-                partido = new Partido(
-                    Integer.parseInt(partidosArray[0]),
-                    Integer.parseInt(partidosArray[1]),
-                    Integer.parseInt(partidosArray[2]),
-                    Integer.parseInt(partidosArray[3]),
-                    Integer.parseInt(partidosArray[4])
+            //Una vez ejecutada la consulta, analizamos los valores recibidos de cada equipo
+            while (rs.next()) {
+                Partido partido = new Partido(
+                    rs.getInt("idPartido"),
+                    rs.getInt("idEquipo1"),
+                    rs.getInt("idEquipo2"),
+                  rs.getInt("golesEquipo1"),
+                  rs.getInt("golesEquipo2")
                 );
                 partidos.add(partido);
             }
-        } 
-        catch(IOException exception) {
-            System.out.println("Mensaje" + exception.getMessage());
+        } catch(SQLException e) {
+            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
         }
-        
         return partidos;
     }
     

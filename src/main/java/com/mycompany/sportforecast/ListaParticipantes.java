@@ -4,25 +4,26 @@
  */
 package com.mycompany.sportforecast;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ListaParticipantes {
     private List<Participante> participantes;
-    private final String nombreArchivo;
-    private final String defaultFile = "./csvFiles/participantes.csv";
+    private final String defaultDB = "./pronosticos.db";
+    private final String CONSULTA_PARTICIPANTES = "SELECT idParticipante, nombre FROM Participantes";
     
+    //Constructores
     public ListaParticipantes(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
-        this.participantes = readParticipanteFile(this.nombreArchivo);
+        this.participantes = readParticipanteDB(nombreArchivo);
     }
     
     public ListaParticipantes() {
-        this.nombreArchivo = this.defaultFile;
-        this.participantes = readParticipanteFile(this.nombreArchivo);
+        this.participantes = readParticipanteDB(this.defaultDB);
     }
     
     public void setParticipantes(List<Participante> participantes) {
@@ -55,28 +56,26 @@ public class ListaParticipantes {
         return list;
     }
     
-    private List<Participante> readParticipanteFile(String file) {
-        String[] participantesArray;
-        Participante participante;
+    private List<Participante> readParticipanteDB(String db) {
         List<Participante> participantes = new ArrayList<>();
-        
+        Connection conn;
         try {
-            Scanner sc = new Scanner(new File(file));
-            sc.useDelimiter("\n");
-            sc.next();  //Jump Colums Names Row
-            while (sc.hasNext()) {                
-                participantesArray = sc.next().split(",");
-                participante = new Participante(
-                        Integer.parseInt(participantesArray[0]),
-                        participantesArray[1]
+            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(CONSULTA_PARTICIPANTES);
+            
+            //Una vez ejecutada la consulta, analizamos los valores recibidos de cada equipo
+            while (rs.next()) {
+                Participante participante = new Participante(
+                        rs.getInt("idParticipante"),
+                        rs.getString("nombre")
                 );
                 participantes.add(participante);
             }
+        } catch(SQLException e) {
+            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
         }
-        catch(IOException exception) {
-            System.out.println("Mensaje" + exception.getMessage());
-        }
-        
         return participantes;
     }
     

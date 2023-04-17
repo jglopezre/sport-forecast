@@ -3,25 +3,26 @@ Clase ListaEquipos para el ejercicio 6_3
  */
 package com.mycompany.sportforecast;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ListaEquipos {
     // atributo
     private List<Equipo> equipos;
-    private String defaultFile = "./csvFiles/equipos.csv";
-    private String nombreArchivo;
+    private final String defaultDB = "./pronosticos.db";
+    private final String CONSULTA_EQUIPOS = "SELECT idEquipo, nombre, descripcion FROM Equipos";
 
     // constructores
     public ListaEquipos(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
+        this.equipos = readEquiposDB(nombreArchivo);
     }
     public ListaEquipos() {
-        this.nombreArchivo = this.defaultFile;
-        equipos = readEquiposFile(nombreArchivo);
+        this.equipos = readEquiposDB(defaultDB);
     }
     
     //set y get
@@ -33,11 +34,11 @@ public class ListaEquipos {
     }
     
     // add y remove elementos
-    public void addEquipo(Equipo e) {
-        this.equipos.add(e);
+    public void addEquipo(Equipo equipo) {
+        this.equipos.add(equipo);
     }
-    public void removeEquipo(Equipo e) {
-        this.equipos.remove(e);
+    public void removeEquipo(Equipo equipo) {
+        this.equipos.remove(equipo);
     }
 
     @Override
@@ -53,28 +54,29 @@ public class ListaEquipos {
         return lista;
     }
     
-    private List<Equipo> readEquiposFile(String file) {
-        String[] equiposArray;
-        Equipo equipo;
+    private List<Equipo> readEquiposDB(String db) {
         List<Equipo> equipos = new ArrayList<>();
         
+        Connection conn = null;
         try {
-            Scanner sc = new Scanner(new File(file));
-            sc.useDelimiter("\n");
-            sc.next();  //Jump Colums Names Row
+            conn = DriverManager.getConnection("jdbc:sqlite:"+db);
             
-            while(sc.hasNext()){
-                equiposArray = sc.next().split(",");
-                equipo = new Equipo(
-                        Integer.parseInt(equiposArray[0]),
-                        equiposArray[1],
-                        equiposArray[2]
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(CONSULTA_EQUIPOS);
+            
+            //Una vez ejecutada la consulta, analizamos los valores recibidos de cada equipo
+            while (rs.next()) {
+                Equipo equipo = new Equipo(
+                   rs.getInt("idEquipo"),
+                    rs.getString("nombre"),
+                 rs.getString("descripcion")
                 );
                 equipos.add(equipo);
             }
-        } catch(IOException exception) {
-            System.out.println("Mensaje " + exception.getMessage());
+        } catch(SQLException e) {
+            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
         }
+        
         return equipos;
     }
     
