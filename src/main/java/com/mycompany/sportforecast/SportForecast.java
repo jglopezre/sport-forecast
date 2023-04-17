@@ -17,8 +17,32 @@ import java.util.List;
  */
 
 public class SportForecast {
-    private final static PronosticoDeportivo pronosticoDeportivo = new PronosticoDeportivo();
+    
     public static void main(String[] args) {
-        pronosticoDeportivo.play();
+        ListaParticipantes participantes = new ListaParticipantes();
+        play(participantes);
     }
+    
+    public static void play(ListaParticipantes participantes) {
+        System.out.println(participantes.getSortedParticipantes());
+    }
+/*pronosticoByParticipante += 
+                    "\n" + "Pronostico " + pronostico.getIdPronostico() + 
+                    " el equipo " + equiposByPartido[pronostico.getIdEquipo() - 1].getNombre() +
+                    " será: " + pronosticoResult + "\n" +
+                    "El partido terminó " +
+                    equiposByPartido[0].getNombre() + " = " + partido.getGolesEquipo1() + 
+                    " vs " + equiposByPartido[1].getNombre() + " = " + partido.getGolesEquipo2() + "\n" + 
+                    "El equipo " + equiposByPartido[pronostico.getIdEquipo() - 1].getNombre() + " tuvo resultado " +
+                    resultadoEquipoByPartido + "\n";
+            
+            
+            int[] scoreAndId = { participante.getIdParticipante(), assertedPronosticoCounter};
+            System.out.println(">>> El participante " + nombreParticipante +
+                    " tiene los siguientes pronosticos: \n" + pronosticoByParticipante + "\n" +
+                    nombreParticipante + " asertó " + assertedPronosticoCounter + " pronosticos" + "\n" +        
+                    "------------------------------------");*/
+
 }
+
+

@@ -7,7 +7,7 @@ package com.mycompany.sportforecast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Participante {
+public class Participante implements Comparable<Participante>{
     private int idParticipante;
     private String nombre;
     private final ListaPronosticos pronosticos;
@@ -48,7 +48,7 @@ public class Participante {
         return pronosticosById;
     }
     
-    private int getScorePronostico() {
+    public int getScorePronostico() {
         ListaPartidos partidos = new ListaPartidos();
         ListaEquipos equipos = new ListaEquipos();
         
@@ -76,8 +76,16 @@ public class Participante {
                 " }";
     }
     
-    
-    
-    
-    
+    @Override
+    public int compareTo(Participante participante) {
+        int thisParticipante = this.getScorePronostico();
+        int otherParticipante = participante.getScorePronostico();
+        if( thisParticipante == otherParticipante) {
+            return 0;
+        } else if(thisParticipante > otherParticipante) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }

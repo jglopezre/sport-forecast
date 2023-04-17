@@ -18,7 +18,7 @@ public class ListaEquipos {
     private final String CONSULTA_EQUIPOS = "SELECT idEquipo, nombre, descripcion FROM Equipos";
 
     public ListaEquipos() {
-        this.equipos = readEquiposDB();
+        this.equipos = loadEquiposData();
     }
     
     public List<Equipo> getEquipos() {
@@ -48,7 +48,7 @@ public class ListaEquipos {
         return lista;
     }
     
-    private List<Equipo> readEquiposDB() {
+    private List<Equipo> loadEquiposData() {
         List<Equipo> equipos = new ArrayList<>();
         Connection conn = null;
         try {

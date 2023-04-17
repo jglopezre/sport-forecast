@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ListaParticipantes {
     private List<Participante> participantes;
@@ -18,7 +19,7 @@ public class ListaParticipantes {
     private final String CONSULTA_PARTICIPANTES = "SELECT idParticipante, nombre FROM Participantes";
     
     public ListaParticipantes() {
-        this.participantes = readParticipanteDB(this.defaultDB);
+        this.participantes = loadParticipanteData(this.defaultDB);
     }
     
     public void setParticipantes(List<Participante> participantes) {
@@ -62,7 +63,7 @@ public class ListaParticipantes {
         return list;
     }
     
-    private List<Participante> readParticipanteDB(String db) {
+    private List<Participante> loadParticipanteData(String db) {
         List<Participante> participantes = new ArrayList<>();
         Connection conn = null;
         try {
@@ -90,6 +91,24 @@ public class ListaParticipantes {
             }
         }
         return participantes;
+    }
+    
+    public List<Participante> getSortedParticipantes() {
+        List<Participante> sortedList = new ArrayList<>();
+        sortedList.addAll(this.participantes);
+        
+        Collections.sort(sortedList, Collections.reverseOrder());
+        return sortedList;
+    }
+    
+    public String sortedParticipantesList() {
+        List<Participante> sortedList = getSortedParticipantes();
+        String list = "";
+        
+        for(Participante participante : sortedList) {
+            list += "\n" + participante;
+        }
+        return list;
     }
     
     
