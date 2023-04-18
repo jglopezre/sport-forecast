@@ -4,7 +4,7 @@
 
 package com.mycompany.sportforecast;
 
-import java.util.List;
+import de.vandermeer.asciitable.AsciiTable;
 
 /**
  *
@@ -24,25 +24,22 @@ public class SportForecast {
     }
     
     public static void play(ListaParticipantes participantes) {
-        System.out.println(participantes.getSortedParticipantes());
+        AsciiTable atable = new AsciiTable();
+        
+        atable.addRule();
+        atable.addRow("Nombre", "puntos");
+        atable.addRule();
+        
+        for(Participante participante : participantes.getSortedParticipantes()) {
+            atable.addRow(
+                    participante.getNombre().replaceAll("\"", ""),
+                    participante.getScorePronostico()
+            );
+            atable.addRule();
+        }
+        
+        System.out.print(atable.render());
     }
-/*pronosticoByParticipante += 
-                    "\n" + "Pronostico " + pronostico.getIdPronostico() + 
-                    " el equipo " + equiposByPartido[pronostico.getIdEquipo() - 1].getNombre() +
-                    " será: " + pronosticoResult + "\n" +
-                    "El partido terminó " +
-                    equiposByPartido[0].getNombre() + " = " + partido.getGolesEquipo1() + 
-                    " vs " + equiposByPartido[1].getNombre() + " = " + partido.getGolesEquipo2() + "\n" + 
-                    "El equipo " + equiposByPartido[pronostico.getIdEquipo() - 1].getNombre() + " tuvo resultado " +
-                    resultadoEquipoByPartido + "\n";
-            
-            
-            int[] scoreAndId = { participante.getIdParticipante(), assertedPronosticoCounter};
-            System.out.println(">>> El participante " + nombreParticipante +
-                    " tiene los siguientes pronosticos: \n" + pronosticoByParticipante + "\n" +
-                    nombreParticipante + " asertó " + assertedPronosticoCounter + " pronosticos" + "\n" +        
-                    "------------------------------------");*/
-
 }
 
 
