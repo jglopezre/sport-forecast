@@ -47,7 +47,10 @@ public class Participante implements Comparable<Participante>{
         }
         return pronosticosById;
     }
-    
+    public void setPronosticos(List<Pronostico> pronosticos) {
+        this.pronosticos.setPronosticos(pronosticos);
+     }
+     
     public int getScorePronostico() {
         ListaPartidos partidos = new ListaPartidos();
         ListaEquipos equipos = new ListaEquipos();
